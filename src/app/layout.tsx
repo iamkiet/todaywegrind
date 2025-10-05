@@ -104,10 +104,11 @@ export const metadata: Metadata = {
   referrer: "origin-when-cross-origin",
   icons: {
     icon: [
+      { url: "/favicon.ico", type: "image/x-icon" },
       { url: "/terminal-solid-full.svg", type: "image/svg+xml" },
       { url: "/terminal-solid-full.svg", sizes: "any" },
     ],
-    shortcut: "/terminal-solid-full.svg",
+    shortcut: "/favicon.ico",
     apple: "/terminal-solid-full.svg",
   },
 };
@@ -121,8 +122,9 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" type="image/x-icon" />
         <link rel="icon" href="/terminal-solid-full.svg" type="image/svg+xml" />
-        <link rel="shortcut icon" href="/terminal-solid-full.svg" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/terminal-solid-full.svg" />
         {/* Preload critical resources */}
         <link
