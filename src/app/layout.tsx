@@ -6,6 +6,8 @@ import { Analytics } from "@vercel/analytics/next";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap", // Optimize font loading
+  preload: true,
 });
 
 export const metadata: Metadata = {
@@ -122,6 +124,14 @@ export default function RootLayout({
         <link rel="icon" href="/terminal-solid-full.svg" type="image/svg+xml" />
         <link rel="shortcut icon" href="/terminal-solid-full.svg" />
         <link rel="apple-touch-icon" href="/terminal-solid-full.svg" />
+        {/* Preload critical resources */}
+        <link
+          rel="preload"
+          href="/terminal-solid-full.svg"
+          as="image"
+          type="image/svg+xml"
+        />
+        <link rel="preload" href="/kiet-profile-1.png" as="image" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

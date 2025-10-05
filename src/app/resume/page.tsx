@@ -1,23 +1,36 @@
 "use client";
 
 import Link from "next/link";
-import Footer from "../../components/Footer";
-import WorkExperienceBlock from "../../components/WorkExperienceBlock";
-import ResumePDF from "../../components/ResumePDF";
 import dynamic from "next/dynamic";
-import {
-  IoArrowBackOutline,
-  IoMailOutline,
-  IoLocationOutline,
-  IoCallOutline,
-  IoCalendarOutline,
-  IoSchoolOutline,
-  IoTrophyOutline,
-  IoCodeSlashOutline,
-  IoLogoLinkedin,
-  IoGlobeOutline,
-  IoDownloadOutline,
-} from "react-icons/io5";
+
+// Dynamic imports for better code splitting
+const Footer = dynamic(() => import("../../components/Footer"), {
+  ssr: false,
+  loading: () => <div className="h-20" />, // Placeholder height
+});
+
+const WorkExperienceBlock = dynamic(
+  () => import("../../components/WorkExperienceBlock"),
+  {
+    ssr: true, // Keep SSR for SEO
+  }
+);
+
+const ResumePDF = dynamic(() => import("../../components/ResumePDF"), {
+  ssr: false,
+});
+// Optimize icon imports - only import what's needed
+import { IoArrowBackOutline } from "react-icons/io5";
+import { IoMailOutline } from "react-icons/io5";
+import { IoLocationOutline } from "react-icons/io5";
+import { IoCallOutline } from "react-icons/io5";
+import { IoCalendarOutline } from "react-icons/io5";
+import { IoSchoolOutline } from "react-icons/io5";
+import { IoTrophyOutline } from "react-icons/io5";
+import { IoCodeSlashOutline } from "react-icons/io5";
+import { IoLogoLinkedin } from "react-icons/io5";
+import { IoGlobeOutline } from "react-icons/io5";
+import { IoDownloadOutline } from "react-icons/io5";
 
 const PDFDownloadLink = dynamic(
   () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
@@ -26,6 +39,14 @@ const PDFDownloadLink = dynamic(
     loading: () => <div>Loading...</div>,
   }
 );
+
+function calculateYearsOfExperience(): number {
+  const startDate = new Date("2018-01-01");
+  const currentDate = new Date();
+  const yearsDiff = currentDate.getFullYear() - startDate.getFullYear();
+
+  return yearsDiff;
+}
 
 const workHistory = [
   {
@@ -149,18 +170,19 @@ export default function Resume() {
           <h1 className="text-3xl font-bold mb-1 uppercase tracking-wide">
             KIET NGUYEN
           </h1>
-          <p className="text-lg text-gray-300">Software Engineer</p>
+          <p className="text-base text-gray-300">
+            Software Engineer ({calculateYearsOfExperience()}+ YOE)
+          </p>
         </div>
 
         <div className="bg-gray-200 p-6">
           <p className="text-gray-800 text-sm leading-relaxed">
-            Software engineer (8+ YOE) with a strong foundation in designing,
-            highly experienced in all phases of the software development
-            lifecycle, from concept and architecture to deployment and
-            optimization. I enjoy designing scalable systems, improving
-            performance, and automating processes. Known for being
-            detail-oriented, collaborative, and committed to building
-            high-quality solutions.
+            Software engineer with a strong foundation in designing, highly
+            experienced in all phases of the software development lifecycle,
+            from concept and architecture to deployment and optimization. I
+            enjoy designing scalable systems, improving performance, and
+            automating processes. Known for being detail-oriented,
+            collaborative, and committed to building high-quality solutions.
           </p>
         </div>
 
@@ -214,6 +236,7 @@ export default function Resume() {
                   <p className="text-black text-sm">
                     University of Science, Viet Nam National University
                   </p>
+                  <p className="text-black text-sm">2014 - 2018</p>
                 </div>
               </div>
 
