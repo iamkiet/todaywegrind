@@ -2,7 +2,6 @@ import Link from "next/link";
 import Footer from "../components/Footer";
 import Navigation from "../components/Navigation";
 import { Metadata } from "next";
-import { IoCodeSlashOutline } from "react-icons/io5";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -180,9 +179,6 @@ export default function Home() {
                     <Link key={post.slug} href={`/blog/${post.slug}`}>
                       <article className="border-b border-gray-100 pb-6 mt-8 group">
                         <div className="flex items-start gap-4">
-                          <div className="flex-shrink-0 mt-1">
-                            <IoCodeSlashOutline className="w-4 h-4 text-gray-400" />
-                          </div>
                           <div className="flex-1 min-w-0">
                             <div className="flex justify-between items-start mb-2">
                               <h3 className="text-sm group-hover:text-gray-600 transition-colors cursor-pointer">

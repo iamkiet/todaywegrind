@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Footer from "../../components/Footer";
 import Navigation from "../../components/Navigation";
-import { IoCodeSlashOutline } from "react-icons/io5";
 import fs from "fs";
 import path from "path";
 import matter from "gray-matter";
@@ -105,12 +104,8 @@ export default function Blog() {
         {/* Blog Header */}
         <header className="mb-16">
           <h1 className="text-3xl md:text-4xl font-light mb-4 leading-tight">
-            today we grind blog
+            blog
           </h1>
-          <p className="text-gray-600 leading-relaxed">
-            thoughts and insights about coding, coffee culture, developer
-            lifestyle, software engineering, and modern technology experiences.
-          </p>
           <p className="text-sm text-gray-500 mt-2 italic">
             todaywegrindcoding • todaywegrindcoffee • developer lifestyle
           </p>
@@ -125,11 +120,6 @@ export default function Blog() {
               >
                 <Link href={`/blog/${post.slug}`} className="block group">
                   <div className="flex items-start gap-6">
-                    {/* Code Icon */}
-                    <div className="flex-shrink-0 mt-1">
-                      <IoCodeSlashOutline className="w-5 h-5 text-gray-400" />
-                    </div>
-
                     <div className="flex-1 min-w-0">
                       <div className="mb-4">
                         <h2 className="text-xl font-light mb-3 group-hover:text-gray-600 transition-colors">
