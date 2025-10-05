@@ -5,7 +5,6 @@ const nextConfig: NextConfig = {
   compress: true,
 
   // Performance optimizations
-  swcMinify: true,
   poweredByHeader: false,
 
   // Webpack optimizations for better bundling
@@ -56,21 +55,24 @@ const nextConfig: NextConfig = {
 
   // Enable experimental features for better SEO and performance
   experimental: {
-    optimizeCss: true, // Enable CSS optimization
+    // optimizeCss: true, // Disabled due to critters dependency issue
     optimizePackageImports: ["react-icons"], // Optimize react-icons imports
-    turbo: {
-      rules: {
-        "*.svg": {
-          loaders: ["@svgr/webpack"],
-          as: "*.js",
-        },
-      },
-    },
     // Enable modern JavaScript features
     esmExternals: true,
-    // Optimize server components
-    serverComponentsExternalPackages: ["react-icons"],
   },
+
+  // Turbopack configuration (simplified to avoid conflicts)
+  turbopack: {
+    rules: {
+      "*.svg": {
+        loaders: ["@svgr/webpack"],
+        as: "*.js",
+      },
+    },
+  },
+
+  // Transpile packages for better compatibility
+  transpilePackages: ["react-icons", "@react-pdf/renderer"],
 
   // Headers for better SEO, security, and performance
   async headers() {
@@ -111,7 +113,7 @@ const nextConfig: NextConfig = {
         ],
       },
       {
-        source: "/(.*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2))",
+        source: "/:path*\\.(js|css|png|jpg|jpeg|gif|ico|svg|woff|woff2)",
         headers: [
           {
             key: "Cache-Control",
