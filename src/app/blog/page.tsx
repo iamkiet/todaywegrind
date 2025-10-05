@@ -134,8 +134,10 @@ export default function Blog() {
                           {post.excerpt}
                         </p>
                       </div>
-                      <div className="text-sm text-gray-400 group-hover:text-gray-600 transition-colors">
-                        read more →
+                      <div className="mt-4">
+                        <span className="text-sm text-gray-400 hover:text-gray-600 transition-colors">
+                          read more →
+                        </span>
                       </div>
                     </div>
                   </div>

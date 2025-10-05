@@ -2,43 +2,33 @@
 
 import Link from "next/link";
 import dynamic from "next/dynamic";
+import Footer from "../../components/Footer";
+import WorkExperienceBlock from "../../components/WorkExperienceBlock";
+import PDFDownloadButton from "../../components/PDFDownloadButton";
 
-// Dynamic imports for better code splitting
-const Footer = dynamic(() => import("../../components/Footer"), {
-  ssr: false,
-  loading: () => <div className="h-20" />, // Placeholder height
-});
-
-const WorkExperienceBlock = dynamic(
-  () => import("../../components/WorkExperienceBlock"),
-  {
-    ssr: true, // Keep SSR for SEO
-  }
-);
-
+// Dynamic import for ResumePDF to avoid SSR issues
 const ResumePDF = dynamic(() => import("../../components/ResumePDF"), {
   ssr: false,
+  loading: () => (
+    <div className="px-4 py-2 bg-gray-400 text-white text-xs rounded-full">
+      Loading PDF...
+    </div>
+  ),
 });
-// Optimize icon imports - only import what's needed
-import { IoArrowBackOutline } from "react-icons/io5";
-import { IoMailOutline } from "react-icons/io5";
-import { IoLocationOutline } from "react-icons/io5";
-import { IoCallOutline } from "react-icons/io5";
-import { IoCalendarOutline } from "react-icons/io5";
-import { IoSchoolOutline } from "react-icons/io5";
-import { IoTrophyOutline } from "react-icons/io5";
-import { IoCodeSlashOutline } from "react-icons/io5";
-import { IoLogoLinkedin } from "react-icons/io5";
-import { IoGlobeOutline } from "react-icons/io5";
-import { IoDownloadOutline } from "react-icons/io5";
 
-const PDFDownloadLink = dynamic(
-  () => import("@react-pdf/renderer").then((mod) => mod.PDFDownloadLink),
-  {
-    ssr: false,
-    loading: () => <div>Loading...</div>,
-  }
-);
+// Import icons from react-icons
+import {
+  IoArrowBackOutline,
+  IoMailOutline,
+  IoLocationOutline,
+  IoCallOutline,
+  IoCalendarOutline,
+  IoSchoolOutline,
+  IoTrophyOutline,
+  IoCodeSlashOutline,
+  IoLogoLinkedin,
+  IoGlobeOutline,
+} from "react-icons/io5";
 
 function calculateYearsOfExperience(): number {
   const startDate = new Date("2018-01-01");
@@ -137,256 +127,311 @@ const workHistory = [
   },
 ];
 
-export default function Resume() {
+function ResumeContent() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <nav className="max-w-4xl mx-auto my-4 px-4 bg-gray-100">
-        <div className="flex justify-between items-center">
-          <Link
-            href="/"
-            className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm"
-          >
-            <IoArrowBackOutline className="w-4 h-4" />
-            Back to Home
-          </Link>
+    <>
+      <style jsx global>{`
+        @media print {
+          body {
+            margin: 0;
+            padding: 0;
+            background: white !important;
+          }
+          .min-h-screen {
+            min-height: auto !important;
+            background: white !important;
+          }
+          nav {
+            display: none !important;
+          }
+          footer {
+            display: none !important;
+          }
+          .bg-gray-100 {
+            background: white !important;
+          }
+          .bg-gray-200 {
+            background: #f9f9f9 !important;
+          }
+          .bg-gray-700 {
+            background: #374151 !important;
+          }
+          .text-white {
+            color: white !important;
+          }
+          .text-gray-300 {
+            color: #d1d5db !important;
+          }
+          .text-gray-700 {
+            color: #374151 !important;
+          }
+          .text-gray-800 {
+            color: #1f2937 !important;
+          }
+          .text-black {
+            color: black !important;
+          }
+          .border-gray-100 {
+            border-color: #f3f4f6 !important;
+          }
+          .rounded-lg {
+            border-radius: 0.5rem !important;
+          }
+          .rounded-t-lg {
+            border-top-left-radius: 0.5rem !important;
+            border-top-right-radius: 0.5rem !important;
+          }
+          .shadow-lg {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1),
+              0 4px 6px -2px rgba(0, 0, 0, 0.05) !important;
+          }
+        }
+      `}</style>
+      <div className="min-h-screen bg-gray-100">
+        <nav className="max-w-4xl mx-auto my-4 px-4 bg-gray-100">
+          <div className="flex justify-between items-center">
+            <Link
+              href="/"
+              className="flex items-center gap-2 text-gray-600 hover:text-black transition-colors text-sm"
+            >
+              <IoArrowBackOutline className="w-4 h-4" />
+              Back to Home
+            </Link>
 
-          <PDFDownloadLink
-            document={<ResumePDF />}
-            fileName="Kiet_Nguyen_Resume.pdf"
-            className="flex items-center gap-2 px-4 py-2 bg-gray-600 text-white text-xs rounded-full hover:bg-gray-700 transition-colors"
-          >
-            {({ loading }) => (
-              <>
-                <IoDownloadOutline className="w-4 h-4" />
-                {loading ? "Generating PDF..." : "Download PDF"}
-              </>
-            )}
-          </PDFDownloadLink>
-        </div>
-      </nav>
+            <PDFDownloadButton
+              document={<ResumePDF />}
+              fileName="Kiet_Nguyen_Resume.pdf"
+            />
+          </div>
+        </nav>
 
-      <div className="max-w-4xl mx-auto px-4">
-        <div className="bg-gray-700 text-white p-6 rounded-t-lg">
-          <h1 className="text-3xl font-bold mb-1 uppercase tracking-wide">
-            KIET NGUYEN
-          </h1>
-          <p className="text-base text-gray-300">
-            Software Engineer ({calculateYearsOfExperience()}+ YOE)
-          </p>
-        </div>
+        <div className="max-w-4xl mx-auto px-4">
+          <div className="bg-gray-700 text-white p-6 rounded-t-lg">
+            <h1 className="text-3xl font-bold mb-1 uppercase tracking-wide">
+              KIET NGUYEN
+            </h1>
+            <p className="text-base text-gray-300">
+              Software Engineer ({calculateYearsOfExperience()}+ YOE)
+            </p>
+          </div>
 
-        <div className="bg-gray-200 p-6">
-          <p className="text-gray-800 text-sm leading-relaxed">
-            Software engineer with a strong foundation in designing, highly
-            experienced in all phases of the software development lifecycle,
-            from concept and architecture to deployment and optimization. I
-            enjoy designing scalable systems, improving performance, and
-            automating processes. Known for being detail-oriented,
-            collaborative, and committed to building high-quality solutions.
-          </p>
-        </div>
+          <div className="bg-gray-200 p-6">
+            <p className="text-gray-800 text-sm leading-relaxed">
+              Software engineer with a strong foundation in designing, highly
+              experienced in all phases of the software development lifecycle,
+              from concept and architecture to deployment and optimization. I
+              enjoy designing scalable systems, improving performance, and
+              automating processes. Known for being detail-oriented,
+              collaborative, and committed to building high-quality solutions.
+            </p>
+          </div>
 
-        <div className="bg-white p-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
-            <div className="space-y-8">
-              <div>
-                <div className="space-y-3 text-sm">
-                  <div className="flex items-center gap-2">
-                    <IoCalendarOutline className="w-4 h-4 text-gray-600" />
-                    <span className="font-semibold text-black">
-                      Since:
-                    </span>{" "}
-                    <span>1996</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <IoCallOutline className="w-4 h-4 text-gray-600" />
-                    <span className="font-semibold text-black">
-                      Phone:
-                    </span>{" "}
-                    <span>hidden</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <IoLocationOutline className="w-4 h-4 text-gray-600" />
-                    <span className="font-semibold text-black">
-                      Address:
-                    </span>{" "}
-                    <span>Tan Binh District, HCMC</span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <IoMailOutline className="w-4 h-4 text-gray-600" />
-                    <span className="font-semibold text-black">
-                      Email:
-                    </span>{" "}
-                    <span>kietnguyen.me@gmail.com</span>
-                  </div>
-                </div>
-              </div>
-
-              <div className="border-t-4 border-black w-24"></div>
-
-              <div>
-                <h2 className="text-lg font-bold text-black mb-4 uppercase flex items-center gap-2">
-                  <IoSchoolOutline className="w-5 h-5" />
-                  Educational
-                </h2>
+          <div className="bg-white p-6">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-16">
+              <div className="space-y-8">
                 <div>
-                  <h3 className="font-semibold text-black text-sm">
-                    Bachelor of Science in Information Technology
-                  </h3>
-                  <p className="text-black text-sm">
-                    University of Science, Viet Nam National University
-                  </p>
-                  <p className="text-black text-sm">2014 - 2018</p>
+                  <div className="space-y-3 text-sm">
+                    <div className="flex items-center gap-2">
+                      <IoCalendarOutline className="w-4 h-4 text-gray-600" />
+                      <span className="font-semibold text-black">
+                        Since:
+                      </span>{" "}
+                      <span>1996</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <IoCallOutline className="w-4 h-4 text-gray-600" />
+                      <span className="font-semibold text-black">
+                        Phone:
+                      </span>{" "}
+                      <span>hidden</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <IoLocationOutline className="w-4 h-4 text-gray-600" />
+                      <span className="font-semibold text-black">
+                        Address:
+                      </span>{" "}
+                      <span>Tan Binh District, HCMC</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <IoMailOutline className="w-4 h-4 text-gray-600" />
+                      <span className="font-semibold text-black">
+                        Email:
+                      </span>{" "}
+                      <span>kietnguyen.me@gmail.com</span>
+                    </div>
+                  </div>
                 </div>
-              </div>
 
-              <div>
-                <h2 className="text-lg font-bold text-black mb-4 uppercase flex items-center gap-2">
-                  <IoTrophyOutline className="w-5 h-5" />
-                  Certificates
-                </h2>
-                <div className="space-y-2 text-sm">
+                <div className="border-t-4 border-black w-24"></div>
+
+                <div>
+                  <h2 className="text-lg font-bold text-black mb-4 uppercase flex items-center gap-2">
+                    <IoSchoolOutline className="w-5 h-5" />
+                    Educational
+                  </h2>
                   <div>
-                    <p className="text-black">
-                      HackerRank - SQL (Advanced) Certificate
+                    <h3 className="font-semibold text-black text-sm">
+                      Bachelor of Science in Information Technology
+                    </h3>
+                    <p className="text-black text-sm">
+                      University of Science, Viet Nam National University
                     </p>
+                    <p className="text-black text-sm">2014 - 2018</p>
                   </div>
                 </div>
-              </div>
-            </div>
 
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-lg font-bold text-black mb-4 uppercase">
-                  Skills and Proficiencies
-                </h2>
-                <div className="space-y-2 text-sm">
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <p className="text-black mr-2">•</p>
-                    </div>
-                    <div className="ml-2">
+                <div>
+                  <h2 className="text-lg font-bold text-black mb-4 uppercase flex items-center gap-2">
+                    <IoTrophyOutline className="w-5 h-5" />
+                    Certificates
+                  </h2>
+                  <div className="space-y-2 text-sm">
+                    <div>
                       <p className="text-black">
-                        <span className="font-semibold">
-                          Programming language:
-                        </span>{" "}
-                        JavaScript, Python, Kotlin
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <p className="text-black mr-2">•</p>
-                    </div>
-                    <div className="ml-2">
-                      <p className="text-black">
-                        <span className="font-semibold">Technology:</span>{" "}
-                        Docker, K8s, Jenkins, Grafana, Kibana, Redash, ArgoCD,
-                        NewRelic, Datadog, Auth0, Snyk, New Relic
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <p className="text-black mr-2">•</p>
-                    </div>
-                    <div className="ml-2">
-                      <p className="text-black">
-                        <span className="font-semibold">Message Queue:</span>{" "}
-                        Kafka, RabbitMQ
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <p className="text-black mr-2">•</p>
-                    </div>
-                    <div className="ml-2">
-                      <p className="text-black">
-                        <span className="font-semibold">Cloud Platform:</span>{" "}
-                        AWS, GCP
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <p className="text-black mr-2">•</p>
-                    </div>
-                    <div className="ml-2">
-                      <p className="text-black">
-                        <span className="font-semibold">Base:</span> OOP, Data
-                        structure
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex">
-                    <div className="flex-shrink-0">
-                      <p className="text-black mr-2">•</p>
-                    </div>
-                    <div className="ml-2">
-                      <p className="text-black">
-                        <span className="font-semibold">Grown:</span> training
-                        and evaluating developer
+                        HackerRank - SQL (Advanced) Certificate
                       </p>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Additional Links */}
-              <div>
-                <h2 className="text-lg font-bold text-black mb-4 uppercase">
-                  Additional Links
-                </h2>
-                <div className="space-y-2 text-sm">
-                  <div className="flex items-center gap-2">
-                    <IoCodeSlashOutline className="w-4 h-4 text-gray-600" />
-                    <span className="font-semibold">GitHub:</span>
-                    <span className="text-gray-700">github.com/iamkiet</span>
+              <div className="space-y-8">
+                <div>
+                  <h2 className="text-lg font-bold text-black mb-4 uppercase">
+                    Skills and Proficiencies
+                  </h2>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <p className="text-black mr-2">•</p>
+                      </div>
+                      <div className="ml-2">
+                        <p className="text-black">
+                          <span className="font-semibold">
+                            Programming language:
+                          </span>{" "}
+                          JavaScript, Python, Kotlin
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <p className="text-black mr-2">•</p>
+                      </div>
+                      <div className="ml-2">
+                        <p className="text-black">
+                          <span className="font-semibold">Technology:</span>{" "}
+                          Docker, K8s, Jenkins, Grafana, Kibana, Redash, ArgoCD,
+                          NewRelic, Datadog, Auth0, Snyk, New Relic
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <p className="text-black mr-2">•</p>
+                      </div>
+                      <div className="ml-2">
+                        <p className="text-black">
+                          <span className="font-semibold">Message Queue:</span>{" "}
+                          Kafka, RabbitMQ
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <p className="text-black mr-2">•</p>
+                      </div>
+                      <div className="ml-2">
+                        <p className="text-black">
+                          <span className="font-semibold">Cloud Platform:</span>{" "}
+                          AWS, GCP
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <p className="text-black mr-2">•</p>
+                      </div>
+                      <div className="ml-2">
+                        <p className="text-black">
+                          <span className="font-semibold">Base:</span> OOP, Data
+                          structure
+                        </p>
+                      </div>
+                    </div>
+                    <div className="flex">
+                      <div className="flex-shrink-0">
+                        <p className="text-black mr-2">•</p>
+                      </div>
+                      <div className="ml-2">
+                        <p className="text-black">
+                          <span className="font-semibold">Grown:</span> training
+                          and evaluating developer
+                        </p>
+                      </div>
+                    </div>
                   </div>
-                  <div className="flex items-center gap-2">
-                    <IoLogoLinkedin className="w-4 h-4 text-gray-600" />
-                    <span className="font-semibold">LinkedIn:</span>
-                    <span className="text-gray-700">
-                      linkedin.com/in/kiet-nguyen-tuan
-                    </span>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <IoGlobeOutline className="w-4 h-4 text-gray-600" />
-                    <span className="font-semibold">Blog:</span>
-                    <span className="text-gray-700">
-                      https://todaywegrind.com/blog
-                    </span>
+                </div>
+
+                {/* Additional Links */}
+                <div>
+                  <h2 className="text-lg font-bold text-black mb-4 uppercase">
+                    Additional Links
+                  </h2>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-center gap-2">
+                      <IoCodeSlashOutline className="w-4 h-4 text-gray-600" />
+                      <span className="font-semibold">GitHub:</span>
+                      <span className="text-gray-700">github.com/iamkiet</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <IoLogoLinkedin className="w-4 h-4 text-gray-600" />
+                      <span className="font-semibold">LinkedIn:</span>
+                      <span className="text-gray-700">
+                        linkedin.com/in/kiet-nguyen-tuan
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <IoGlobeOutline className="w-4 h-4 text-gray-600" />
+                      <span className="font-semibold">Blog:</span>
+                      <span className="text-gray-700">
+                        https://todaywegrind.com/blog
+                      </span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className="bg-white p-6">
-          <h2 className="text-lg font-bold text-black mb-4 uppercase tracking-wide">
-            Work History
-          </h2>
-          <div>
-            {workHistory.map((exp, idx) => (
-              <WorkExperienceBlock
-                key={idx}
-                company={exp.company}
-                role={exp.role}
-                period={exp.period}
-                project={exp.project}
-                architecture={exp.architecture}
-                techStack={exp.techStack}
-                position={exp.position}
-                achievements={exp.achievements}
-              />
-            ))}
+          <div className="bg-white p-6">
+            <h2 className="text-lg font-bold text-black mb-4 uppercase tracking-wide">
+              Work History
+            </h2>
+            <div>
+              {workHistory.map((exp, idx) => (
+                <WorkExperienceBlock
+                  key={idx}
+                  company={exp.company}
+                  role={exp.role}
+                  period={exp.period}
+                  project={exp.project}
+                  architecture={exp.architecture}
+                  techStack={exp.techStack}
+                  position={exp.position}
+                  achievements={exp.achievements}
+                />
+              ))}
+            </div>
           </div>
-        </div>
 
-        <Footer />
+          <Footer />
+        </div>
       </div>
-    </div>
+    </>
   );
+}
+
+export default function Resume() {
+  return <ResumeContent />;
 }

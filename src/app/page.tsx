@@ -81,13 +81,13 @@ export default function Home() {
                   meet kiet
                 </Link>
                 <Link
-                  href="/about"
+                  href="/gallery"
                   className="px-4 py-2 bg-gray-600 text-white text-xs rounded-full hover:bg-gray-700 transition-colors"
                 >
                   gallery
                 </Link>
                 <Link
-                  href="/about"
+                  href="/journey"
                   className="px-4 py-2 bg-gray-600 text-white text-xs rounded-full hover:bg-gray-700 transition-colors"
                 >
                   journey
@@ -191,6 +191,11 @@ export default function Home() {
                             <p className="text-xs text-gray-500 leading-relaxed">
                               {post.excerpt}
                             </p>
+                            <div className="mt-3">
+                              <span className="text-xs text-gray-400 hover:text-gray-600 transition-colors">
+                                read more →
+                              </span>
+                            </div>
                           </div>
                         </div>
                       </article>
