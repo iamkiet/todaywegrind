@@ -1,5 +1,4 @@
 import React from "react";
-import { IoCheckmarkCircleOutline } from "react-icons/io5";
 
 export interface WorkExperienceBlockProps {
   company: string;
@@ -45,11 +44,11 @@ const WorkExperienceBlock: React.FC<WorkExperienceBlockProps> = ({
     </div>
     <div className="text-sm space-y-1 text-gray-700">
       {achievements.map((item, idx) => (
-        <div className="flex" key={idx}>
-          <div className="flex-shrink-0 w-4 mt-0.5">
-            <IoCheckmarkCircleOutline className="w-3 h-3 text-gray-500" />
+        <div className="flex items-start" key={idx}>
+          <div className="flex-shrink-0 w-4">
+            <p className="text-gray-500 mr-2">-</p>
           </div>
-          <div className="flex-1 ml-2">
+          <div className="flex-1">
             <p>{item}</p>
           </div>
         </div>

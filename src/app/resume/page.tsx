@@ -1,20 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import dynamic from "next/dynamic";
 import Footer from "../../components/Footer";
 import WorkExperienceBlock from "../../components/WorkExperienceBlock";
-import PDFDownloadButton from "../../components/PDFDownloadButton";
-
-// Dynamic import for ResumePDF to avoid SSR issues
-const ResumePDF = dynamic(() => import("../../components/ResumePDF"), {
-  ssr: false,
-  loading: () => (
-    <div className="px-4 py-2 bg-gray-400 text-white text-xs rounded-full">
-      Loading PDF...
-    </div>
-  ),
-});
 
 // Import icons from react-icons
 import {
@@ -197,11 +185,6 @@ function ResumeContent() {
               <IoArrowBackOutline className="w-4 h-4" />
               Back to Home
             </Link>
-
-            <PDFDownloadButton
-              document={<ResumePDF />}
-              fileName="Kiet_Nguyen_Resume.pdf"
-            />
           </div>
         </nav>
 
