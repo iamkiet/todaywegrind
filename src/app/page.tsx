@@ -117,7 +117,7 @@ export default function Home() {
                 >
                   linkedin
                 </a>
-                <Link
+                {/* <Link
                   href="/resume"
                   className="px-4 py-2 bg-[#525a66] text-white text-xs rounded-full hover:bg-gray-700 transition-colors flex items-center gap-1"
                   title="Resume"
@@ -130,7 +130,7 @@ export default function Home() {
                     🍔
                   </span>
                   resume
-                </Link>
+                </Link> */}
               </div>
             </div>
           </section>
