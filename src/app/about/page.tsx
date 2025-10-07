@@ -81,8 +81,8 @@ export default function About() {
 
         <main className="space-y-16">
           <section>
-            <div className="flex flex-col md:flex-row md:space-x-12 space-y-8 md:space-y-0 items-start">
-              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mx-auto md:mx-0 flex-shrink-0 bg-gray-100">
+            <div className="flex flex-col md:flex-row md:gap-8 gap-6 items-start">
+              <div className="w-32 h-32 md:w-40 md:h-40 rounded-full overflow-hidden mx-auto md:mx-0 flex-shrink-0 bg-gray-100 shadow-sm">
                 <Image
                   src="/kiet-profile-2.png"
                   alt="Kiet Nguyen - Senior Software Engineer at Today We Grind - Coding, Coffee & Developer Lifestyle Expert"
@@ -97,7 +97,7 @@ export default function About() {
                 />
               </div>
 
-              <div className="flex-1">
+              <div className="flex-1 min-w-0">
                 <p className="text-gray-700 leading-relaxed mb-4">
                   Hi, I&apos;m Kiet Nguyen, a Senior Software Engineer,
                   JavaScript and Node.js enthusiast, and coffee holic. I love
