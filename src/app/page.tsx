@@ -92,6 +92,18 @@ export default function Home() {
                 >
                   journey
                 </Link>
+                <Link
+                  href="/gold"
+                  className="px-4 py-2 bg-gray-600 text-white text-xs rounded-full hover:bg-gray-700 transition-colors"
+                >
+                  gold calculator
+                </Link>
+                <Link
+                  href="/social-insurance"
+                  className="px-4 py-2 bg-gray-600 text-white text-xs rounded-full hover:bg-gray-700 transition-colors"
+                >
+                  tính BHXH
+                </Link>
                 <a
                   href="mailto:kietnguyen.me@gmail.com"
                   className="px-4 py-2 bg-gray-600 text-white text-xs rounded-full hover:bg-gray-700 transition-colors"

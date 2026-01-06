@@ -10,6 +10,8 @@ export default function Navigation() {
     { href: "/", label: "home" },
     { href: "/blog", label: "blog" },
     { href: "/about", label: "about" },
+    { href: "/gold", label: "gold" },
+    { href: "/social-insurance", label: "bhxh" },
   ];
 
   const isActive = (href: string) => {
