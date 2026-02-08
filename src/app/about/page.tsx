@@ -121,43 +121,7 @@ export default function About() {
             </div>
           </section>
 
-          <section>
-            <h2 className="text-xl font-medium mb-6 text-black uppercase tracking-wider">
-              Current Role
-            </h2>
-            <div className="bg-gray-50 p-6 rounded-lg">
-              <div className="flex justify-between items-start mb-4">
-                <div>
-                  <h3 className="font-semibold text-black">
-                    Senior Software Engineer
-                  </h3>
-                  <p className="text-gray-600">Thoughtworks</p>
-                </div>
-                <span className="text-sm text-gray-400">
-                  Nov 2024 - Present
-                </span>
-              </div>
 
-              <p className="text-gray-700 leading-relaxed mb-4">
-                Working as a Technical Anchor on an operations platform for a
-                major Australian utility company. Leading technical decisions,
-                mentoring team members, and driving architectural improvements
-                across a complex microservices ecosystem.
-              </p>
-
-              <div className="space-y-2">
-                <p className="text-sm">
-                  <span className="font-semibold">Key Technologies:</span>{" "}
-                  Kotlin, Spring Boot 3, NestJS, ReactJS, PostgreSQL, Kafka, AWS
-                </p>
-                <p className="text-sm">
-                  <span className="font-semibold">Focus Areas:</span>{" "}
-                  Microservices Architecture, Cloud Infrastructure, Performance
-                  Optimization
-                </p>
-              </div>
-            </div>
-          </section>
 
           <section>
             <h2 className="text-xl font-medium mb-6 text-black uppercase tracking-wider">
